@@ -1,2 +1,3 @@
-https://github.com/Suad28d/program6.git
-# program6
+program6
+https://suad28d.github.io/program6
+
