@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Speeding Tickets - 25mph or More Over</title>
+    <title>Speeding Tickets</title>
     <!-- Include Bootstrap and Vue.js -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -17,14 +17,14 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li><a href="index.html">All Tickets</a></li>
-                <li class="active"><a href="25over.html">25mph or More Over</a></li>
+                <li class="active"><a href="index.html">All Tickets</a></li>
+                <li><a href="25over.html">25mph or More Over</a></li>
             </ul>
         </div>
     </nav>
 
     <div id="ticketApp">
-        <h2>Tickets July 4, 2014, Minneapolis/St. Paul - 25mph or More Over</h2>
+        <h2>Tickets July 4, 2014, Minneapolis/St. Paul</h2>
         <table class="table table-bordered table-striped">
             <tr>
                 <th>Ticket ID</th>
@@ -33,7 +33,7 @@
                 <th>MPH Over</th>
                 <th>Violator Sex</th>
             </tr>
-            <tr v-for="ticket in filteredTickets">
+            <tr v-for="ticket in tickets">
                 <td>{{ ticket.tid }}</td>
                 <td>{{ ticket.stop_time }}</td>
                 <td>{{ ticket.posted_speed }}</td>
@@ -52,11 +52,6 @@
         },
         created() {
             this.getData();
-        },
-        computed: {
-            filteredTickets() {
-                return this.tickets.filter(ticket => ticket.actual_speed - ticket.posted_speed >= 25);
-            }
         },
         methods: {
             async getData() {
