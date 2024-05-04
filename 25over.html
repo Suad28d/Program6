@@ -24,7 +24,7 @@
     </nav>
 
     <div id="ticketApp">
-        <h2>Tickets July 4, 2014, Minneapolis/St. Paul</h2>
+        <h2>Tickets July 4, 2014, Minneapolis/St. Paul - 25mph or More Over</h2>
         <table class="table table-bordered table-striped">
             <tr>
                 <th>Ticket ID</th>
@@ -33,7 +33,7 @@
                 <th>MPH Over</th>
                 <th>Violator Sex</th>
             </tr>
-            <tr v-for="ticket in tickets">
+            <tr v-for="ticket in filteredTickets">
                 <td>{{ ticket.tid }}</td>
                 <td>{{ ticket.stop_time }}</td>
                 <td>{{ ticket.posted_speed }}</td>
@@ -52,6 +52,11 @@
         },
         created() {
             this.getData();
+        },
+        computed: {
+            filteredTickets() {
+                return this.tickets.filter(ticket => ticket.actual_speed - ticket.posted_speed >= 25);
+            }
         },
         methods: {
             async getData() {
