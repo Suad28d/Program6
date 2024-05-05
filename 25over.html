@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Speeding Tickets</title>
+    <title>Speeding Tickets - 25mph or More Over</title>
     <!-- Include Bootstrap and Vue.js -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -17,8 +17,8 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">All Tickets</a></li>
-                <li><a href="25over.html">25mph or More Over</a></li>
+                <li><a href="index.html">All Tickets</a></li>
+                <li class="active"><a href="25over.html">25mph or More Over</a></li>
             </ul>
         </div>
     </nav>
@@ -45,25 +45,26 @@
 </div>
 
 <script>
-    let app = Vue.createApp({
-            data() {     // returns an object of data
-                return {
-                    tickets: [],           // array to hold student data
-                }
-            },
-            created() {      // section executes as page loads
-                this.getData()  // load json data as page loads
-            },
-            methods: {    // ajax request
-                async getData() {
-                    const response = await fetch('tickets1.json')
-                    this.tickets = await response.json()
-                    //tickets = data.filter( (item) => item.major == majSelect );     
-                },
+    let app = new Vue({
+        el: '#ticketApp',
+        data: {
+            tickets: []
+        },
+        created() {
+            this.getData();
+        },
+        computed: {
+            filteredTickets() {
+                return this.tickets.filter(ticket => ticket.actual_speed - ticket.posted_speed >= 25);
             }
-          })
-      
-      app.mount('#ticketApp')   //in which div to mount the vue app
+        },
+        methods: {
+            async getData() {
+                const response = await fetch('tickets1.json');
+                this.tickets = await response.json();
+            }
+        }
+    });
 </script>
 
 </body>
